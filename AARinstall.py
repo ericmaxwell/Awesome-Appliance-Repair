@@ -21,6 +21,7 @@ if __name__ == '__main__':
 # apt-get the stuff we need
     proc = Popen([
         'yum', 'install', '-y',
+        'epel-release',
         'mod_wsgi',
         'python-pip',
         'MySQL-python'], shell=False)
