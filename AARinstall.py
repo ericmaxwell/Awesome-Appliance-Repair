@@ -21,9 +21,9 @@ if __name__ == '__main__':
 # apt-get the stuff we need
     proc = Popen([
         'yum', 'install', '-y',
-        'libapache2-mod-wsgi',
+        'mod_wsgi',
         'python-pip',
-        'python-mysqldb'], shell=False)
+        'MySQL-python'], shell=False)
     proc.wait()
 
 # pip install flask
