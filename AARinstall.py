@@ -21,12 +21,17 @@ if __name__ == '__main__':
 # apt-get the stuff we need
     proc = Popen([
         'yum', 'install', '-y',
-        'epel-release',
+        'epel-release', # needed for pip
         'mod_wsgi',
         'python-pip',
         'MySQL-python'], shell=False)
     proc.wait()
 
+    proc = Popen([
+        'yum', 'install', '-y',
+        'python-pip'], shell=False)
+    proc.wait()
+    
 # pip install flask
     Popen(['pip', 'install', 'flask'], shell=False).wait()
 
