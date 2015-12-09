@@ -14,7 +14,8 @@ import os, sys, getpass, binascii
 # 7. manually execute: apachectl graceful
 
 if __name__ == '__main__':
-    root_dbpswd = getpass.getpass('enter the mysql root user password: ')
+    #root_dbpswd = getpass.getpass('enter the mysql root user password: ')
+    root_dbpswd = sys.argv[0];
 
     Popen(['chown', '-R', 'www-data:www-data', '/var/www/AAR'], shell=False).wait()
 
