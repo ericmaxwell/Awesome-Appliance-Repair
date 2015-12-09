@@ -15,7 +15,7 @@ import os, sys, getpass, binascii
 
 if __name__ == '__main__':
     #root_dbpswd = getpass.getpass('enter the mysql root user password: ')
-    root_dbpswd = sys.argv[0];
+    root_dbpswd = str(sys.argv[1]);
 
     Popen(['chown', '-R', 'apache:apache', '/var/www/AAR'], shell=False).wait()
 
@@ -85,7 +85,7 @@ if __name__ == '__main__':
 
 # Create DB, user, and permissions
     import MySQLdb
-    db = MySQLdb.connect(host='localhost', user='root', passwd='password')
+    db = MySQLdb.connect(host='localhost', user='root', passwd=root_dbpswd)
     sql_script = open('make_AARdb.sql', 'r').read()
 
     cur = db.cursor()
