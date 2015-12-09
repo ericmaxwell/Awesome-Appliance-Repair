@@ -1,4 +1,4 @@
-﻿#Awesome Appliance Web Application - RHEL version#
+﻿#Awesome Appliance Web Application - RHEL & DEB version#
 This repo contains the code for a sample Web application that uses Apache2 (httpod) and 
 MySQL. It is a forms-based business app for Awesome Appliance Repair, a fictional
  appliance repair company. The app lets customers create new requests for service calls 
