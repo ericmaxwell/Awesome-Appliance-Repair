@@ -31,7 +31,7 @@ if __name__ == '__main__':
         'yum', 'install', '-y',
         'python-pip'], shell=False)
     proc.wait()
-    
+
 # pip install flask
     Popen(['pip', 'install', 'flask'], shell=False).wait()
 
@@ -39,6 +39,10 @@ if __name__ == '__main__':
     Popen(['apachectl', 'stop'], shell=False).wait()
 
     pth = '/etc/httpd/sites-enabled/'
+
+    if not os.path.exists(pth):
+        os.makedirs(pth)
+
     for f in os.listdir(pth):
         os.remove(pth + f)
 
