@@ -16,14 +16,20 @@ import os, sys, getpass, binascii
 if __name__ == '__main__':
     root_dbpswd = getpass.getpass('enter the mysql root user password: ')
 
-    Popen(['chown', '-R', 'www-data:www-data', '/var/www/AAR'], shell=False).wait()
+    Popen(['chown', '-R', 'apache:apache', '/var/www/AAR'], shell=False).wait()
 
 # apt-get the stuff we need
     proc = Popen([
-        'apt-get', 'install', '-y',
-        'libapache2-mod-wsgi',
+        'yum', 'install', '-y',
+        'epel-release', # needed for pip
+        'mod_wsgi',
         'python-pip',
-        'python-mysqldb'], shell=False)
+        'MySQL-python'], shell=False)
+    proc.wait()
+
+    proc = Popen([
+        'yum', 'install', '-y',
+        'python-pip'], shell=False)
     proc.wait()
 
 # pip install flask
@@ -32,17 +38,22 @@ if __name__ == '__main__':
 # Generate the apache config file in sites-enabled
     Popen(['apachectl', 'stop'], shell=False).wait()
 
-    pth = '/etc/apache2/sites-enabled/'
+    pth = '/etc/httpd/sites-enabled/'
+
+    if not os.path.exists(pth):
+        os.makedirs(pth)
+
     for f in os.listdir(pth):
         os.remove(pth + f)
 
-    f = open('/etc/apache2/sites-enabled/AAR-apache.conf', 'w')
+    f = open('/etc/httpd/sites-enabled/AAR-apache.conf', 'w')
     f.write("""
     <VirtualHost *:80>
       ServerName /
       WSGIDaemonProcess /AAR user=www-data group=www-data threads=5
       WSGIProcessGroup /AAR
       WSGIScriptAlias / /var/www/AAR/awesomeapp.wsgi
+
       <Directory /var/www/AAR>
         WSGIApplicationGroup %{GLOBAL}
         WSGIScriptReloading On
@@ -70,6 +81,7 @@ if __name__ == '__main__':
 
     f.write(conn_args_string + secret_key_string + database_values_string)
     f.close()
+
 # Create DB, user, and permissions
     import MySQLdb
     db = MySQLdb.connect(host='localhost', user='root', passwd=root_dbpswd)
