@@ -85,7 +85,7 @@ if __name__ == '__main__':
 
 # Create DB, user, and permissions
     import MySQLdb
-    db = MySQLdb.connect(host='localhost', user='root', passwd=root_dbpswd)
+    db = MySQLdb.connect(host='127.0.0.1', user='root', passwd=root_dbpswd)
     sql_script = open('make_AARdb.sql', 'r').read()
 
     cur = db.cursor()
