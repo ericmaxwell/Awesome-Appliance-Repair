@@ -73,7 +73,7 @@ if __name__ == '__main__':
     appdbpw = binascii.b2a_base64(os.urandom(6)).strip('\n')
     secretkey = binascii.b2a_base64(os.urandom(12)).strip('\n')
 
-    conn_args_string = """CONNECTION_ARGS = {"host":"localhost", "user":"aarapp", "passwd":"%s", "db":"AARdb"}\n\n""" % appdbpw
+    conn_args_string = """CONNECTION_ARGS = {"host":"127.0.0.1", "user":"aarapp", "passwd":"%s", "db":"AARdb"}\n\n""" % appdbpw
 
     secret_key_string = """SECRET_KEY = "%s"\n\n""" % secretkey
 
